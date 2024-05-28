@@ -1,6 +1,6 @@
 <?php
 require_once './co_bdd.php';
-echo'ez';
+
 // Validation du Formulaire
 if (isset($_POST['boutonInscription'])) {
     // Vérifier si l'utilisateur a bien complété tous les champs
