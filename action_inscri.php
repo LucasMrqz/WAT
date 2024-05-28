@@ -14,7 +14,6 @@ if (isset($_POST['boutonInscription'])) {
         $mdp = htmlspecialchars($_POST['motdepasse']);
         $mdpHash = hash('sha256',$mdp);
         
-
         try {
             // Vérifier si l'utilisateur existe déjà sur le site
             $utilisateurExistant = $bdd->prepare('SELECT email FROM utilisateur WHERE email = ?');
@@ -40,7 +39,7 @@ if (isset($_POST['boutonInscription'])) {
                     $_SESSION['telephone'] = $infosUtilisateur['telephone'];
                     
                     // Redirige l'utilisateur vers la page de connexion
-                    header('Location: ./page_co_uti.php');
+                    header('Location: http://localhost:8080/#/connexion');
                     exit();
                 } else {
                     $errorMsg = "Erreur lors de la récupération des informations utilisateur.";

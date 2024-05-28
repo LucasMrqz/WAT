@@ -16,8 +16,8 @@ if(isset($_POST['boutton-valider'])){
         $selectUti->execute(array($Email));
 
         // Requête d'insertion des données dans la table ticket
-        $creerUtilisateur = $lien->prepare('INSERT INTO ticket (ticket, description, dateCreation, idUtilisateur) VALUES (?, ?, ?, ?)');
-        $creerUtilisateur->execute(array($titre, $desc, $dateCrea, $id));
+        $creerTicket = $lien->prepare('INSERT INTO ticket (idCat, titre, description, dateCreation, idUtilisateur) VALUES (?, ?, ?, ?)');
+        $creerTicket->execute(array($titre, $desc, $dateCrea, $id));
     }
 }
 ?>
