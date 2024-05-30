@@ -4,22 +4,24 @@ require_once './co_bdd.php';
 // Validation du Formulaire
 if (isset($_POST['boutonInscription'])) {
     // Vérifier si l'utilisateur a bien complété tous les champs
-    if (!empty($_POST['nom']) && !empty($_POST['prenom']) && !empty($_POST['mail']) && !empty($_POST['motdepasse'])&& !empty($_POST['telephone'])) {
-        
+    if (!empty($_POST['nom']) && !empty($_POST['prenom']) && !empty($_POST['mail']) && !empty($_POST['motdepasse'])&& !empty($_POST['tel'])) {
+        echo 'brj';
         // Les données de l'utilisateur
         $utilisateur_nom = htmlspecialchars($_POST['nom']);
         $utilisateur_prenom = htmlspecialchars($_POST['prenom']);
         $utilisateur_mail = htmlspecialchars($_POST['mail']);
-        $utilisateur_tel = htmlspecialchars($_POST['telephone']);
+        $utilisateur_tel = htmlspecialchars($_POST['tel']);
         $mdp = htmlspecialchars($_POST['motdepasse']);
         $mdpHash = hash('sha256',$mdp);
         
         try {
+        echo 'slt';
             // Vérifier si l'utilisateur existe déjà sur le site
             $utilisateurExistant = $bdd->prepare('SELECT email FROM utilisateur WHERE email = ?');
             $utilisateurExistant->execute([$utilisateur_mail]);
             
             if ($utilisateurExistant->rowCount() == 0) {
+        echo 'suce';
                 // Insérer l'utilisateur dans la bdd
                 $creerUtilisateur = $bdd->prepare('INSERT INTO utilisateur (nom, prenom, email, telephone,  mdp) VALUES (?, ?, ?, ?, ?)');
                 $creerUtilisateur->execute([$utilisateur_nom, $utilisateur_prenom, $utilisateur_mail, $utilisateur_tel, $mdpHash]);
@@ -30,16 +32,17 @@ if (isset($_POST['boutonInscription'])) {
                 $infosUtilisateur = $obtenirinfoUtilisateur->fetch();
                 
                 if ($infosUtilisateur) {
+        echo 'toi aussi';
                     // Authentifier l'utilisateur sur le site et récupérer ses données dans des sessions
                     $_SESSION['auth'] = true;
                     $_SESSION['id'] = $infosUtilisateur['idUtilisateur'];
                     $_SESSION['nom'] = $infosUtilisateur['nom'];
                     $_SESSION['prenom'] = $infosUtilisateur['prenom'];
                     $_SESSION['mail'] = $infosUtilisateur['email'];
-                    $_SESSION['telephone'] = $infosUtilisateur['telephone'];
+                    $_SESSION['tel'] = $infosUtilisateur['telephone'];
                     
                     // Redirige l'utilisateur vers la page de connexion
-                    header('Location: http://localhost:8080/#/connexion');
+                    //header('Location: http://localhost:8080/#/connexion');
                     exit();
                 } else {
                     $errorMsg = "Erreur lors de la récupération des informations utilisateur.";
