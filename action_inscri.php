@@ -7,11 +7,11 @@ if (isset($_POST['boutonInscription'])) {
     if (!empty($_POST['nom']) && !empty($_POST['prenom']) && !empty($_POST['mail']) && !empty($_POST['motdepasse'])&& !empty($_POST['tel'])) {
         echo 'brj';
         // Les données de l'utilisateur
-        $utilisateur_nom = htmlspecialchars($_POST['nom']);
-        $utilisateur_prenom = htmlspecialchars($_POST['prenom']);
-        $utilisateur_mail = htmlspecialchars($_POST['mail']);
-        $utilisateur_tel = htmlspecialchars($_POST['tel']);
-        $mdp = htmlspecialchars($_POST['motdepasse']);
+        $utilisateur_nom = json_decode(htmlspecialchars($_POST['nom']), true);
+        $utilisateur_prenom = json_decode(htmlspecialchars($_POST['prenom']), true);
+        $utilisateur_mail = json_decode(htmlspecialchars($_POST['mail']), true);
+        $utilisateur_tel = json_decode(htmlspecialchars($_POST['tel']), true);
+        $mdp = json_decode(htmlspecialchars($_POST['motdepasse']), true);
         $mdpHash = hash('sha256',$mdp);
         
         try {
