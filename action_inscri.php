@@ -14,24 +14,21 @@ if (isset($_POST['boutonInscription'])) {
         $mdp = json_decode(htmlspecialchars($_POST['motdepasse']), true);
         $mdpHash = hash('sha256',$mdp);
         
-        try {
         echo 'slt';
             // Vérifier si l'utilisateur existe déjà sur le site
-            $utilisateurExistant = $bdd->prepare('SELECT email FROM utilisateur WHERE email = ?');
+            $utilisateurExistant = $lien->prepare('SELECT email FROM utilisateur WHERE email = ?');
             $utilisateurExistant->execute([$utilisateur_mail]);
             
             if ($utilisateurExistant->rowCount() == 0) {
-        echo 'suce';
+        echo 'cc';
                 // Insérer l'utilisateur dans la bdd
-                $creerUtilisateur = $bdd->prepare('INSERT INTO utilisateur (nom, prenom, email, telephone,  mdp) VALUES (?, ?, ?, ?, ?)');
+                $creerUtilisateur = $lien->prepare('INSERT INTO utilisateur (nom, prenom, email, telephone,  mdp) VALUES (?, ?, ?, ?, ?)');
                 $creerUtilisateur->execute([$utilisateur_nom, $utilisateur_prenom, $utilisateur_mail, $utilisateur_tel, $mdpHash]);
                 
                 // Récupérer les informations de l'utilisateur
-                $obtenirinfoUtilisateur = $bdd->prepare('SELECT * FROM utilisateur WHERE email = ?');
+                $obtenirinfoUtilisateur = $lien->prepare('SELECT * FROM utilisateur WHERE email = ?');
                 $obtenirinfoUtilisateur->execute([$utilisateur_mail]);
                 $infosUtilisateur = $obtenirinfoUtilisateur->fetch();
-                
-                if ($infosUtilisateur) {
         echo 'toi aussi';
                     // Authentifier l'utilisateur sur le site et récupérer ses données dans des sessions
                     $_SESSION['auth'] = true;
@@ -50,11 +47,7 @@ if (isset($_POST['boutonInscription'])) {
             } else {
                 $errorMsg = "L'utilisateur existe déjà avec cet e-mail.";
             }
-        } catch (PDOException $e) {
-            $errorMsg = "Erreur lors de la connexion à la base de données : " . $e->getMessage();
-        }
     } else {
         $errorMsg = "Veuillez compléter tous les champs.";
     }
-}
 ?>
