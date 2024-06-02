@@ -4,7 +4,7 @@ require_once './co_bdd.php';
 // Validation du Formulaire
 if (isset($_POST['boutonInscription'])) {
     // Vérifier si l'utilisateur a bien complété tous les champs
-    if (!empty($_POST['nom']) && !empty($_POST['prenom']) && !empty($_POST['mail']) && !empty($_POST['motdepasse'])&& !empty($_POST['tel'])) {
+    if (isset($_POST['nom']) && isset($_POST['prenom']) && isset($_POST['mail']) && isset($_POST['motdepasse']) && isset($_POST['tel'])) {
         echo 'brj';
         // Les données de l'utilisateur
         $utilisateur_nom = json_decode(htmlspecialchars($_POST['nom']), true);
@@ -17,17 +17,17 @@ if (isset($_POST['boutonInscription'])) {
         echo 'slt';
             // Vérifier si l'utilisateur existe déjà sur le site
             $utilisateurExistant = $lien->prepare('SELECT email FROM utilisateur WHERE email = ?');
-            $utilisateurExistant->execute([$utilisateur_mail]);
+            $utilisateurExistant->execute(array($utilisateur_mail));
             
             if ($utilisateurExistant->rowCount() == 0) {
         echo 'cc';
                 // Insérer l'utilisateur dans la bdd
-                $creerUtilisateur = $lien->prepare('INSERT INTO utilisateur (nom, prenom, email, telephone,  mdp) VALUES (?, ?, ?, ?, ?)');
-                $creerUtilisateur->execute([$utilisateur_nom, $utilisateur_prenom, $utilisateur_mail, $utilisateur_tel, $mdpHash]);
+                $creerUtilisateur = $lien->prepare('INSERT INTO utilisateur (nom, prenom, email, telephone, mdp) VALUES (?, ?, ?, ?, ?)');
+                $creerUtilisateur->execute(array($utilisateur_nom, $utilisateur_prenom, $utilisateur_mail, $utilisateur_tel, $mdpHash));
                 
                 // Récupérer les informations de l'utilisateur
                 $obtenirinfoUtilisateur = $lien->prepare('SELECT * FROM utilisateur WHERE email = ?');
-                $obtenirinfoUtilisateur->execute([$utilisateur_mail]);
+                $obtenirinfoUtilisateur->execute(array($utilisateur_mail));
                 $infosUtilisateur = $obtenirinfoUtilisateur->fetch();
         echo 'toi aussi';
                     // Authentifier l'utilisateur sur le site et récupérer ses données dans des sessions
