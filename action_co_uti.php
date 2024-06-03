@@ -8,13 +8,12 @@ if (isset($_POST['boutonConnexion'])) {
         $mdpHash = hash('sha256',$mdp);
         
         // Requête SQL pour récupérer l'utilisateur par email
-        $utilisateurExistant = $bdd->prepare('SELECT * FROM utilisateur WHERE email = ?');
+        $utilisateurExistant = $lien->prepare('SELECT * FROM utilisateur WHERE email = ?');
         $utilisateurExistant->execute(array($utilisateur_mail));
         
         // Vérifier que l'utilisateur existe
         if ($utilisateurExistant->rowCount() > 0) {
             $infosUtilisateur = $utilisateurExistant->fetch();
-            $hash_mdp = $infosUtilisateur['mdp'];
            
             // Vérification du mot de passe
             if ($mdpHash == $infosUtilisateur['mdp']) {
