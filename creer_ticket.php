@@ -7,19 +7,20 @@ if(isset($_POST['boutton-valider'])){
         $titre = htmlspecialchars($_POST['titre']);
         $desc = htmlspecialchars($_POST['desc']);
         $cate = $_POST['categorie'];
-        $id = $_SESSION['id'];
-        $Email = $_SESSION['mail'];
-        $nom = $_SESSION['nom'];
+        $dateCrea = "04-06-2024";
+        //$id = $_SESSION['id'];
+        //$Email = $_SESSION['mail'];
+        //$nom = $_SESSION['nom'];
         
         //selectionner le bon créateur du ticket
-        $selectUti = $lien->prepare("SELECT idUtilisateur FROM utilisateur WHERE email = ?");
-        $selectUti->execute(array($Email));
+        //$selectUti = $lien->prepare("SELECT idUtilisateur FROM utilisateur WHERE email = ?");
+        //$selectUti->execute(array($Email));
 
         // Requête d'insertion des données dans la table ticket
         $creerTicket = $lien->prepare('INSERT INTO ticket (idCat, titre, description, dateCreation) VALUES (?, ?, ?, ?)');
-        $creerTicket->execute(array($cate, $titre, $desc, NOW()));
+        $creerTicket->execute(array($cate, $titre, $desc, $dateCrea));
 
-        header('Location: http://localhost:8080/#/about');
+        header('Location: http://localhost:8080/#/creerTicket');
     }
 }
 ?>
