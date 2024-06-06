@@ -7,7 +7,6 @@ if(isset($_POST['boutton-valider'])){
         $titre = htmlspecialchars($_POST['titre']);
         $desc = htmlspecialchars($_POST['desc']);
         $cate = $_POST['categorie'];
-        $dateCrea = "04-06-2024";
         //$id = $_SESSION['id'];
         //$Email = $_SESSION['mail'];
         //$nom = $_SESSION['nom'];
@@ -17,7 +16,7 @@ if(isset($_POST['boutton-valider'])){
         //$selectUti->execute(array($Email));
 
         // Requête d'insertion des données dans la table ticket
-        $creerTicket = $lien->prepare('INSERT INTO ticket (idCat, titre, description, dateCreation) VALUES (?, ?, ?, ?)');
+        $creerTicket = $lien->prepare('INSERT INTO ticket (idCat, titre, description, dateCreation) VALUES (?, ?, ?, NOW())');
         $creerTicket->execute(array($cate, $titre, $desc, $dateCrea));
 
         header('Location: http://localhost:8080/#/creerTicket');
