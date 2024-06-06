@@ -17,9 +17,10 @@ if(isset($_POST['boutton-valider'])){
 
         // Requête d'insertion des données dans la table ticket
         $creerTicket = $lien->prepare('INSERT INTO ticket (idCat, titre, description, dateCreation) VALUES (?, ?, ?, NOW())');
-        $creerTicket->execute(array($cate, $titre, $desc, $dateCrea));
+        $creerTicket->execute(array($cate, $titre, $desc));
 
-        header('Location: http://localhost:8080/#/creerTicket');
+        //header('Location: http://localhost:8080/#/creerTicket');
+        header('Location: https://wat.alwaysdata.net/#/creerTicket');
     }
 }
 ?>
