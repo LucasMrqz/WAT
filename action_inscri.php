@@ -40,7 +40,7 @@ if (isset($_POST['boutonInscription'])) {
                     
                     // Redirige l'utilisateur vers la page de connexion
                     //header('Location: http://localhost:8080/#/connexion');
-                    header('Location: https://wat.alwaysdata.net/#/connexion';)
+                    header('Location: https://wat.alwaysdata.net/#/connexion');
                     exit();
                 } else {
                     $errorMsg = "Erreur lors de la récupération des informations utilisateur.";
