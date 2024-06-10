@@ -16,11 +16,11 @@ if(isset($_POST['boutton-valider'])){
         //$selectUti->execute(array($Email));
 
         // Requête d'insertion des données dans la table ticket
-        $creerTicket = $lien->prepare('INSERT INTO ticket (idCat, titre, description, dateCreation, idStatut, idUtilisateur) VALUES (?, ?, ?, NOW(), "1", "29")');
+        $creerTicket = $lien->prepare('INSERT INTO ticket (idCat, titre, description, dateCreation, priorite, idStatut, idUtilisateur) VALUES (?, ?, ?, NOW(), "0", "1", "29")');
         $creerTicket->execute(array($cate, $titre, $desc));
 
-        //header('Location: http://localhost:8080/#/creerTicket');
-        header('Location: https://wat.alwaysdata.net/#/creerTicket');
+        header('Location: http://localhost:8080/#/creerTicket');
+        //header('Location: https://wat.alwaysdata.net/#/creerTicket');
     }
 }
 ?>
