@@ -7,9 +7,18 @@ header('Access-Control-Allow-Methods: GET, POST, OPTIONS');
 header('Access-Control-Allow-Headers: Content-Type, Authorization');
 header('Content-Type: application/json');
 
+require_once './co_bdd.php';
+
 try {
-    $query = $lien->prepare("SELECT * FROM ticket");
-    $query->execute();
+    if (isset($_POST['cat']) && !empty($_POST['cat'])) {
+        $idCat = $_POST['cat'];
+        $query = $lien->prepare("SELECT * FROM ticket INNER JOIN categorieticket ON ticket.idCat = categorieticket.idCat WHERE categorieticket.idCat = ?");
+        $query->execute([$idCat]);
+    } else {
+        $query = $lien->prepare("SELECT * FROM ticket");
+        $query->execute();
+    }
+
     $tickets = $query->fetchAll(PDO::FETCH_ASSOC);
     echo json_encode($tickets);
 } catch (PDOException $e) {
