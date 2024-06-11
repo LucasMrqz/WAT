@@ -16,23 +16,23 @@ if (isset($_POST['boutonInscription'])) {
         
         
             // Vérifier si l'utilisateur existe déjà sur le site
-            $utilisateurExistant = $lien->prepare('SELECT email FROM utilisateur WHERE email = ?');
+            $utilisateurExistant = $lien->prepare('SELECT email FROM technicien WHERE email = ?');
             $utilisateurExistant->execute(array($utilisateur_mail));
             
             if ($utilisateurExistant->rowCount() == 0) {
         echo 'cc';
                 // Insérer l'utilisateur dans la bdd
-                $creerUtilisateur = $lien->prepare('INSERT INTO utilisateur (nom, prenom, email, telephone, mdp) VALUES (?, ?, ?, ?, ?)');
+                $creerUtilisateur = $lien->prepare('INSERT INTO technicien (nom, prenom, email, telephone, mdp) VALUES (?, ?, ?, ?, ?)');
                 $creerUtilisateur->execute(array($utilisateur_nom, $utilisateur_prenom, $utilisateur_mail, $utilisateur_tel, $mdpHash));
                 
                 // Récupérer les informations de l'utilisateur
-                $obtenirinfoUtilisateur = $lien->prepare('SELECT * FROM utilisateur WHERE email = ?');
+                $obtenirinfoUtilisateur = $lien->prepare('SELECT * FROM technicien WHERE email = ?');
                 $obtenirinfoUtilisateur->execute(array($utilisateur_mail));
                 $infosUtilisateur = $obtenirinfoUtilisateur->fetch();
         echo 'toi aussi';
                     // Authentifier l'utilisateur sur le site et récupérer ses données dans des sessions
                     $_SESSION['auth'] = true;
-                    $_SESSION['id'] = $infosUtilisateur['idUtilisateur'];
+                    $_SESSION['id'] = $infosUtilisateur['idTechnicien'];
                     $_SESSION['nom'] = $infosUtilisateur['nom'];
                     $_SESSION['prenom'] = $infosUtilisateur['prenom'];
                     $_SESSION['mail'] = $infosUtilisateur['email'];

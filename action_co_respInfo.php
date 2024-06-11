@@ -24,8 +24,8 @@ if (isset($_POST['boutonConnexion'])) {
                 $_SESSION['mail'] = $infosUtilisateur['email'];
                 
                 // Rediriger vers la page d'accueil
-                header('Location: http://localhost:8080/#/accueilAdmin');
-                //header('Location: https://wat.alwaysdata.net/#/accueilAdmin');
+                header('Location: http://localhost:8080/#/affTickAdmin');
+                //header('Location: https://wat.alwaysdata.net/#/affTickAdmin');
                 exit();
                 
             } else {
